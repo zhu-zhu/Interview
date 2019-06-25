@@ -1,0 +1,3 @@
+# HTML中怎么设置字符编码
+
+在head标签中使用meta标签content属性使用charset=utf-8就可以设置为utf-8编码
