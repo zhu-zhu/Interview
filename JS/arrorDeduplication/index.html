@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    const set = (arr) => {
+        var newarr = []
+        for(var i = 0; i < arr.length; i++) {
+            for(var j = 0; j < newarr.length; j++) {
+                if(arr[i] === newarr[j]) {
+                    break;
+                }
+            }
+            if(j === newarr.length) {
+                newarr.push(arr[i])
+            }
+        }
+        console.log(newarr)
+    }
+    set([1, 1, 2, 2, 3, 5, 5])
+</script>
+</html>
+ 
