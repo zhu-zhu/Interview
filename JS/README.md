@@ -53,3 +53,49 @@ const set = (arr) => {
 }
 set([1, 1, 2, 2, 3, 5, 5])
 ```
+
+# 封装一个简单的ajax
+
+```javascript
+// 接受4个参数 method, url, body, headers
+
+function axios ({ method, url, body, headers }) {
+    return new Promise((resolve, reject) => {
+        let xhr = new XMLHttpRequest()
+        xhr.open(method, url)
+
+        for(let key in headers) {
+            let value = headers[key]
+            xhr.setRequestHeader(key, value)
+        }
+
+        xhr.onreadystatechange = function() {
+            if(xhr.readyState == 4) {
+                if(xhr.status == 200) {
+                    resolve(xhr.responseText)
+                }else if(xhr.status >= 400) {
+                    reject(xhr)
+                }
+            }
+        }
+
+        xhr.send(body)
+    })
+}
+
+const init = async () => {
+    try {
+        let data = await axios({
+            method: 'get/post',
+            url: 'url',
+            headers: {
+                "content-type": 'application/x-www-form-urlencoded'
+            }
+        })
+
+        console.log(JSON.parse(data))
+    }catch(err) {
+        console.error(err)
+    }
+}
+```
