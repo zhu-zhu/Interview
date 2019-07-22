@@ -64,6 +64,7 @@ function axios ({ method, url, body, headers }) {
         let xhr = new XMLHttpRequest()
         xhr.open(method, url)
 
+        //设置header
         for(let key in headers) {
             let value = headers[key]
             xhr.setRequestHeader(key, value)
@@ -72,6 +73,7 @@ function axios ({ method, url, body, headers }) {
         xhr.onreadystatechange = function() {
             if(xhr.readyState == 4) {
                 if(xhr.status == 200) {
+                    //返回内容
                     resolve(xhr.responseText)
                 }else if(xhr.status >= 400) {
                     reject(xhr)
@@ -96,6 +98,52 @@ const init = async () => {
         console.log(JSON.parse(data))
     }catch(err) {
         console.error(err)
+    }
+}
+```
+
+# 给Add类添加方法完成以下预期效果
+
+```javascript
+class Add {
+
+}
+
+//预期效果
+const Add1 = new Add()
+Add1.next() -> return 1
+Add1.next() -> return 2
+const Add2 = new Add()
+Add2.next() -> return 3
+Add2.next() -> return 4
+
+//1.使用静态属性，然后看到next()就一起用generator函数
+class Add {
+    static v = 0
+    constructor() {
+        return this.method()
+    }
+
+    *method() {
+        while(true) {
+            yield ++ Add.v
+        }
+    }
+}
+
+//2.如果不是next的话，可以使用单列模式(Singleton)
+class Add {
+    constructor() {
+        if(Add.instance) {
+            return Add.instance
+        }
+        Add.instance = this
+        this.val = 0
+        return this
+    }
+
+    next() {
+        return this.val += 1
     }
 }
 ```
